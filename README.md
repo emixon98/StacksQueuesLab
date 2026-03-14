@@ -42,7 +42,7 @@ Tail = 3
 | 4 | 1 | 3 |  |  |  |
 #### DEQUEUE(Q)
 Head = 2
-Tail = 2
+Tail = 3
 |  | 1 | 3 |  |  |  |
 #### ENQUEUE(Q, 8)
 Head = 2
