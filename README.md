@@ -95,13 +95,70 @@ return x
 
 ## Task 4: Write 4 O(1)-time procedures to insert elements into and delete elements from both ends of a deque implemented array
 
+Using D as our Deque and x as our value.
 
 O(1) time would be iterating through elements once, minimize to one for loop for each operation 
-Insertion at beginning
 
-Most likely would have logic from both stack and queue that can be utilized in four operations we could call PUSH POP QUEUE AND ENQUEUE.  We dont have to write flags for under/overflow, so my assumption would be its essentially a hybrid of the two and implementation would be rather simple. If we use a hybrid as the base it would be simply indexing at 0 and -1. But we might want dynamic sorting, so for every element to shift over 1, verify this, or look at existing deque logic. My guess would be a vector could do this, or we can use hashtable logic from last week, although that seems like overkill here. I feel overriding at each index seems a bit trivial of a solution though so dynamic behavior seems the best. Honestly, including code and a termninal screen shot for md that shows print statemetns like: "Inserting at the front" and prints array shifted and new element present seems great for clarity, leaning this direction. Map this out and write later. 
-Insertion at end
+### Insertion at beginning
 
-Deletion at beginning
+if D.head == 0 and D.tail == D.length
+    error "Overflow"
+if D.head == D.tail+1
+    error "Overflow"
 
-Deletion at end
+if D.head == -1
+    D.head = 0
+    D.tail = 0
+else if D.head == 0
+    D.head = D.length
+else
+    D.head = D.head -1
+
+D.head = x
+
+
+
+Most likely would have logic from both stack and queue that can be utilized in four operations we could call PUSH POP QUEUE AND ENQUEUE.  We dont have to write flags for under/overflow, so my assumption would be its essentially a hybrid of the two and implementation would be rather simple. If we use a hybrid as the base it would be simply indexing at 0 and -1. But we might want dynamic sorting, so for every element to shift over 1, verify this, or look at existing deque logic. My guess would be a vector could do this, or we can use hashtable logic from last week, although that seems like overkill here. I feel overriding at each index seems a bit trivial of a solution though so dynamic behavior seems the best. Honestly, including code and a termninal screen shot for md that shows print statemetns like: "Inserting at the head" and prints array shifted and new element present seems great for clarity, leaning this direction. Map this out and write later. 
+### Insertion at end
+
+if D.head == 0 and D.tail == D.length
+    error "Overflow"
+if D.head == D.tail+1
+    error "Overflow"
+
+if D.head == -1
+    D.head = 0
+    D.tail = 0
+else if D.tail == D.length
+    D.tail = 0
+else
+    D.tail  = D.tail + 1
+
+D.tail = x
+
+### Deletion at beginning
+if D.head == -1
+    error Underflow
+
+x = D.head
+
+if D.head == D.tail
+    D.head = -1
+    D.tail = -1
+else if D.head == D.length
+    D.head = 0
+else 
+    D.head = D.head + 1
+
+### Deletion at end
+if D.head == -1
+    error Underflow
+x = D.tail
+if D.head == D.tail
+    D.head = -1
+    D.tail = -1
+else if D.tail == 0
+    D.tail = D.length
+else
+    D.tail = D.tail -1
+
