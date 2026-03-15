@@ -7,6 +7,8 @@ PUSH Inserts element at the end
 POP Deletes elements from the end
 (S is the stack we are affecting, # is the Value inserting)
 
+ADD IN DIAGRAMS //TODO
+
 Rough ASCII Diagramming for now
 #### PUSH(S, 4)
 | 4 |  |  |  |  |  |
@@ -59,32 +61,37 @@ Use pseudocode in book as a baseline to build on top of for these
 
 ### ENQUEUE Rewrite
 
+Using the Pseudocode template given from our textbook, some basic modification can help us to detect overflow. Q.head and Q.tail are already tracked, every condition involving overflow is accounted for. Realistically I would combine my two else if statements into one, however, for readability I separated them to create clear separate cases for this task. The two conditions described in the book are that overflow will occur in a queue if we attempt to ENQUEUE when:
+
+1) Q.head = Q.tail + 1
+2) Both, Q.head = 1 && Q.tail = Q.length
+
+Since the assignment asked for detection, I merely added a print statement to indicate that action.
+
+Pseudocode of ENQUEUE(Q,x)
 Q[Q.tail] = x
 if Q.tail == Q.length
     Q.tail = 1
+else if Q.head == Q.tail + 1
+    print("Overflow Occuring")
+else if Q.head == 1 and Q.tail = Q.length
+    print("Overflow Occuring")
 else Q.tail = Q.tail + 1
 
 
-Overflow occurs when? If S.top exceeds n
-How to detect Overflow. We could have a running counter by passing in an additional parameter to both Push and Pop. If we push we increment the counter by 1, decrement if pop. By doing so we can implement a while statement that says if counter <= n we can continue with our Push operations, if not we notify that the action would cause overflow, and either prompt user to continue with action or stop.
-
-Underflow occus when? If we attempt to pop an empty stack.
-Same process with the counter, but we add an if statement to POP that say if n > 0  we can POP. If not we then cout that this would cause underflow.
-
 ### DEQUEUE Rewrite
+Underflow of a queue occurs when we attempt to dequeue on an empty queue. The way to detect an empty queue would be to check if Q.head and Q.tail are equal. We would want to add this in to the front of the if statements.
 
+Pseudocode of DEQUEUE(Q)
 x = Q[Q.head]
+if Q.head == Q.tail
+    print("Underflow occuring")
 if Q.head == Q.length
     Q.head = 1
 else Q.head = Q.head + 1
 return x
 
-Overflow occurs when?
-Q.head = Q.tail + 1 or Q.head = 1 && Q.tail = Q.length. We can set 2 values that track our tail and head, both starting as null values. When we Enqueue we increment our tail by 1, and for the first element added increment the head by 1. If we Dequeue the head increments. We set conditionals that track whether the overflow conditions are met.
 
-Underflow occus when?
-
-If we attempt to dequeue and empty queue. We can use a counter, similar to the Stack option. Just now realizing the questions is asking for queue specific operations. Well... we brainstormed it all so include logic in pseudocode or actual code later. Showing it in C++ might not be to hard either, or take pseudocode Queue logic and just add our extra vars.
 
 ## Task 4: Write 4 O(1)-time procedures to insert elements into and delete elements from both ends of a deque implemented array
 
