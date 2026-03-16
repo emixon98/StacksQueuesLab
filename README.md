@@ -1,18 +1,20 @@
 # StacksQueuesLab
 CISC 187 Week 6 Lab
-## Task 1 illustrate the result of each operation in the sequence using figure 17 as a model, on an empty stack S stored in an array S[1..6]
-Stacks are LIFO Last In First Out
-PUSH Inserts element at the end
-POP Deletes elements from the end
-(S is the stack we are affecting, # is the Value inserting)
+## Task 1 
+### Illustrate the result of each operation in the sequence using figure 17 as a model, on an empty stack S stored in an array S[1..6]
+#### Stacks are LIFO Last In First Out
+#### PUSH Inserts element at the end
+#### POP Deletes elements from the end
+#### (S is the stack we are affecting, # is the Value inserting)
 
 ![Stack Image](Stack.jpg)
 
-## Task 2 illustrate the result of each operation in the sequence using figure 18 as a model, on an initially empty queue Q stored in an array Q[1..6]
-From Book: FIFO
-Same Concept (Q is queue, # is inserted element)
-Enqueue takes place at tail, dequeue is the element at head
-Order is Q.head, Q.head+1, ....., Q.tail -1
+## Task 2
+### Illustrate the result of each operation in the sequence using figure 18 as a model, on an initially empty queue Q stored in an array Q[1..6]
+#### From Book: FIFO
+#### Same Concept (Q is queue, # is inserted element)
+#### Enqueue takes place at tail, dequeue is the element at head
+#### Order is Q.head, Q.head+1, ....., Q.tail -1
 
 ![Queue Image](Queue.jpg)
 
