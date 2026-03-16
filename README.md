@@ -7,21 +7,7 @@ PUSH Inserts element at the end
 POP Deletes elements from the end
 (S is the stack we are affecting, # is the Value inserting)
 
-ADD IN DIAGRAMS //TODO
 
-Rough ASCII Diagramming for now
-#### PUSH(S, 4)
-| 4 |  |  |  |  |  |
-#### PUSH(S, 1)
-| 4 | 1 |  |  |  |  |
-#### PUSH(S, 3)
-| 4 | 1 | 3 |  |  |  |
-#### POP(S) (3 would get removed LIFO)
-| 4 | 1 |  |  |  |  |
-#### PUSH(S, 8)
-| 4 | 1 | 8 |  |  |  |
-#### POP(S) (8 Would get removed LIFO)
-| 4 | 1 |  |  |  |  |
 
 ## Task 2 illustrate the result of each operation in the sequence 
 ### using figure 18 as a model, on an initially empty queue Q stored in an array Q[1..6]
@@ -30,30 +16,6 @@ Same Concept (Q is queue, # is inserted element)
 Enqueue takes place at tail, dequeue is the element at head
 Order is Q.head, Q.head+1, ....., Q.tail -1
 
-#### ENQUEUE(Q, 4)
-Head = 1
-Tail = 1
-| 4 |  |  |  |  |  |
-#### ENQUEUE(Q, 1)
-Head = 1
-Tail = 2
-| 4 | 1 |  |  |  |  |
-#### ENQUEUE(Q, 3)
-Head = 1
-Tail = 3
-| 4 | 1 | 3 |  |  |  |
-#### DEQUEUE(Q)
-Head = 2
-Tail = 3
-|  | 1 | 3 |  |  |  |
-#### ENQUEUE(Q, 8)
-Head = 2
-Tail = 4
-|  | 1 | 3 | 8 |  |  |
-#### DEQUEUE(Q)
-Head = 3
-Tail = 4
-|  |  | 3 | 8 |  |  |
 
 ## Task 3 Rewrite ENQUEUE and DEQUEUE to detect underflow and overflow of a queue.
 
