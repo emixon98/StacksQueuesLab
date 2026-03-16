@@ -70,7 +70,7 @@ Pseudocode of ENQUEUE(Q,x)
 ```
 if Q.head == Q.tail + 1
     error Overflow
-else if Q.head == 1 and Q.tail = Q.length
+else if Q.head == 1 and Q.tail == Q.length
     error Overflow
 
 Q[Q.tail] = x
@@ -110,7 +110,7 @@ Using D as our Deque and x as our value. Using 1-index base just like queue pseu
 Track basic overflow logic for insertion using the logic defined in the queue task as a basis. D.head == -1 is a way to detect if head is a null value, in which we want to make both head and tail equal to 1 for the first inserted element. If D.head is equal to 1 we cannot move backwards, and thus have to circle back around to our last space which is D.length. D.head = D.head -1 is changing D.head upon inserting this new element, 
 ie) we have | | | |1 | 2| 3|,
 
-1 would be the head, so we want to decrement to insert at beginning in this case. 
+1 would be the head element, so we want to decrement to insert at the beginning in this case. 
 ```
 if D.head == 1 and D.tail == D.length
     error "Overflow"
