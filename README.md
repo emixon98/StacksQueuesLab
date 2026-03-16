@@ -27,9 +27,9 @@ Rough ASCII Diagramming for now
 ### using figure 18 as a model, on an initially empty queue Q stored in an array Q[1..6]
 From Book: FIFO
 Same Concept (Q is queue, # is inserted element)
-Enqueue takes place at tail, dequeue is element at head
-We start with Q.head = Q.tail (ie)empty
+Enqueue takes place at tail, dequeue is the element at head
 Order is Q.head, Q.head+1, ....., Q.tail -1
+
 #### ENQUEUE(Q, 4)
 Head = 1
 Tail = 1
@@ -57,108 +57,129 @@ Tail = 4
 
 ## Task 3 Rewrite ENQUEUE and DEQUEUE to detect underflow and overflow of a queue.
 
-Use pseudocode in book as a baseline to build on top of for these
-
 ### ENQUEUE Rewrite
 
-Using the Pseudocode template given from our textbook, some basic modification can help us to detect overflow. Q.head and Q.tail are already tracked, every condition involving overflow is accounted for. Realistically I would combine my two else if statements into one, however, for readability I separated them to create clear separate cases for this task. The two conditions described in the book are that overflow will occur in a queue if we attempt to ENQUEUE when:
+Using the Pseudocode template given from our textbook, some basic modification can help us to detect overflow. We want to check for overflow before performing any operation on our queue. Q.head and Q.tail are already tracked, every condition involving overflow is accounted for. Realistically I would combine my two else if statements into one, however, for readability I separated them to create clear separate cases for this task. The two conditions described in the book are that overflow will occur in a queue if we attempt to ENQUEUE when:
 
-1) Q.head = Q.tail + 1
-2) Both, Q.head = 1 && Q.tail = Q.length
+1) Q.head == Q.tail + 1
+2) Both, Q.head == 1 && Q.tail == Q.length
 
-Since the assignment asked for detection, I merely added a print statement to indicate that action.
+Since the assignment asked for detection, I merely added an error statement in the pseudocode to indicate that action.
 
 Pseudocode of ENQUEUE(Q,x)
+```
+if Q.head == Q.tail + 1
+    error Overflow
+else if Q.head == 1 and Q.tail = Q.length
+    error Overflow
+
 Q[Q.tail] = x
+
 if Q.tail == Q.length
     Q.tail = 1
-else if Q.head == Q.tail + 1
-    print("Overflow Occuring")
-else if Q.head == 1 and Q.tail = Q.length
-    print("Overflow Occuring")
-else Q.tail = Q.tail + 1
-
+else 
+    Q.tail = Q.tail + 1
+```
 
 ### DEQUEUE Rewrite
-Underflow of a queue occurs when we attempt to dequeue on an empty queue. The way to detect an empty queue would be to check if Q.head and Q.tail are equal. We would want to add this in to the front of the if statements.
+Underflow of a queue occurs when we attempt to dequeue on an empty queue. The way to detect an empty queue would be to check if Q.head and Q.tail are equal. We would want to add this in to the front of the if statements and declaration of x, as we need to check for underflow before continuing operations.
 
 Pseudocode of DEQUEUE(Q)
-x = Q[Q.head]
+```
 if Q.head == Q.tail
-    print("Underflow occuring")
+    error Underflow
+
+x = Q[Q.head]
+
 if Q.head == Q.length
     Q.head = 1
-else Q.head = Q.head + 1
+else 
+    Q.head = Q.head + 1
+
 return x
+```
 
 
 
 ## Task 4: Write 4 O(1)-time procedures to insert elements into and delete elements from both ends of a deque implemented array
 
-Using D as our Deque and x as our value.
-
-O(1) time would be iterating through elements once, minimize to one for loop for each operation 
+Using D as our Deque and x as our value. Using 1-index base just like queue pseudocode.
 
 ### Insertion at beginning
 
-if D.head == 0 and D.tail == D.length
+Track basic overflow logic for insertion using the logic defined in the queue task as a basis. D.head == -1 is a way to detect if head is a null value, in which we want to make both head and tail equal to 1 for the first inserted element. If D.head is equal to 1 we cannot move backwards, and thus have to circle back around to our last space which is D.length. D.head = D.head -1 is changing D.head upon inserting this new element, 
+ie) we have | | | |1 | 2| 3|,
+
+1 would be the head, so we want to decrement to insert at beginning in this case. 
+```
+if D.head == 1 and D.tail == D.length
     error "Overflow"
-if D.head == D.tail+1
+if D.head == D.tail + 1
     error "Overflow"
 
 if D.head == -1
-    D.head = 0
-    D.tail = 0
-else if D.head == 0
+    D.head = 1
+    D.tail = 1
+else if D.head == 1
     D.head = D.length
 else
-    D.head = D.head -1
+    D.head = D.head - 1
 
-D.head = x
+D[D.head] = x
+```
 
-
-
-Most likely would have logic from both stack and queue that can be utilized in four operations we could call PUSH POP QUEUE AND ENQUEUE.  We dont have to write flags for under/overflow, so my assumption would be its essentially a hybrid of the two and implementation would be rather simple. If we use a hybrid as the base it would be simply indexing at 0 and -1. But we might want dynamic sorting, so for every element to shift over 1, verify this, or look at existing deque logic. My guess would be a vector could do this, or we can use hashtable logic from last week, although that seems like overkill here. I feel overriding at each index seems a bit trivial of a solution though so dynamic behavior seems the best. Honestly, including code and a termninal screen shot for md that shows print statemetns like: "Inserting at the head" and prints array shifted and new element present seems great for clarity, leaning this direction. Map this out and write later. 
 ### Insertion at end
 
-if D.head == 0 and D.tail == D.length
+Same checks for overflow as insertion at the beginning. Rather than moving our head pointer backwards we move the tail forward in end cases. but our indexing checks replaces head with tail. If tail is already equal to the length we must circle back to the front to index 1, to make more dynamic structures.
+```
+if D.head == 1 and D.tail == D.length
     error "Overflow"
-if D.head == D.tail+1
+if D.head == D.tail + 1
     error "Overflow"
 
 if D.head == -1
-    D.head = 0
-    D.tail = 0
+    D.head = 1
+    D.tail = 1
 else if D.tail == D.length
-    D.tail = 0
+    D.tail = 1
 else
     D.tail  = D.tail + 1
 
-D.tail = x
-
+D[D.tail] = x
+```
 ### Deletion at beginning
+
+D.head == -1, the deque is empty, removing would cause underflow in this case. If D.head == D.tail there is only one element, if we delete it we have an empty deque, and as such we have to "reset" it by marking tail and head as empty again, relating to our checks in the other functions. If we do remove, we want the current head to be one greater since the current head is now empty.
+```
 if D.head == -1
     error Underflow
 
-x = D.head
+x = D[D.head]
 
 if D.head == D.tail
     D.head = -1
     D.tail = -1
 else if D.head == D.length
-    D.head = 0
+    D.head = 1
 else 
     D.head = D.head + 1
 
+return x
+```
 ### Deletion at end
+
+Similarly, if we delete the tail we want to decrement the element once.
+```
 if D.head == -1
     error Underflow
-x = D.tail
+x = D[D.tail]
 if D.head == D.tail
     D.head = -1
     D.tail = -1
-else if D.tail == 0
+else if D.tail == 1
     D.tail = D.length
 else
     D.tail = D.tail -1
 
+return x
+```
