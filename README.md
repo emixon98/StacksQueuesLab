@@ -7,7 +7,7 @@ PUSH Inserts element at the end
 POP Deletes elements from the end
 (S is the stack we are affecting, # is the Value inserting)
 
-
+![Stack Image](Stack.jpg)
 
 ## Task 2 illustrate the result of each operation in the sequence 
 ### using figure 18 as a model, on an initially empty queue Q stored in an array Q[1..6]
@@ -16,6 +16,7 @@ Same Concept (Q is queue, # is inserted element)
 Enqueue takes place at tail, dequeue is the element at head
 Order is Q.head, Q.head+1, ....., Q.tail -1
 
+![Queue Image](Queue.jpg)
 
 ## Task 3 Rewrite ENQUEUE and DEQUEUE to detect underflow and overflow of a queue.
 
